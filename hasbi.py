@@ -18,6 +18,9 @@ from joblib import load
 
 Diabetes_trained_model = load('rf_model.sav')
 
+import joblib
+Diabetes_trained_model = joblib.load('rf_model.sav')
+
 # Sidebar for Navigation
 with st.sidebar:
     selected = option_menu('Multiple Disease Prediction System',
