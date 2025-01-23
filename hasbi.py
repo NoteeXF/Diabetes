@@ -21,6 +21,8 @@ Diabetes_trained_model = load('rf_model.sav')
 import joblib
 Diabetes_trained_model = joblib.load('rf_model.sav')
 
+
+
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
@@ -66,9 +68,11 @@ def main():
     # Code for prediction
     diagnosis = ''
 
+    # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-      diagnosis = diabetes_prediction([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age])
+       diagnosis = diabetes_prediction([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
     st.success(diagnosis)
 
-    if __name__ == '__main__':
-     main()
+
+if __name__ == '__main__':
+    main()
