@@ -21,13 +21,6 @@ Diabetes_trained_model = load('rf_model.sav')
 import joblib
 Diabetes_trained_model = joblib.load('rf_model.sav')
 
-# Sidebar for Navigation
-with st.sidebar:
-    selected = option_menu('Multiple Disease Prediction System',
-                           ['Diabetes Prediction'],
-                           icons=['activity', 'heart', 'person'],
-                           default_index=0)
-
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
@@ -75,22 +68,8 @@ def main():
 
     # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-        # Collect input data
-        try:
-            input_data = [
-                Pregnancies, Glucose, BloodPressure, SkinThickness,
-                Insulin, BMI, DiabetesPedigreeFunction, Age
-            ]
+       diagnosis = diabetes_prediction([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
 
-            # Convert input data to float and handle any invalid inputs
-            input_data = [float(x) for x in input_data]
-
-            # Make the prediction
-            diagnosis = diabetes_prediction(input_data)
-        except ValueError:
-            diagnosis = "Please enter valid numeric values for all fields."
-
-        # Display the diagnosis result
         st.success(diagnosis)
 
 
