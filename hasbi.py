@@ -29,15 +29,12 @@ import numpy as np
 
 # Function for prediction
 def diabetes_prediction(input_data):
-    # Convert the input_data to a numpy array
-    input_data_as_numpy_array = np.asarray(input_data)
-
-    # Reshape the array as we are predicting for one instance
-    input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
+    # Convert the input_data to a numpy array and ensure it is 2D
+    input_data_as_numpy_array = np.array([input_data])  # Directly create a 2D array
 
     # Standardize the input data
     scaler = MinMaxScaler()
-    std_data = scaler.fit_transform(input_data_reshaped)
+    std_data = scaler.fit_transform(input_data_as_numpy_array)
 
     # Make prediction
     prediction = Diabetes_trained_model.predict(std_data)
