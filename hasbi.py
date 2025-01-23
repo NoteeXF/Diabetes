@@ -22,7 +22,7 @@ from joblib import load
 
 Diabetes_trained_model = load('rf_model.sav')
 
-from sklearn.preprocessing import StandardScaler
+from sklearn.preprocessing import MinMaxScaler
 import numpy as np
 
 
