@@ -22,9 +22,10 @@ from joblib import load
 
 Diabetes_trained_model = load('rf_model.sav')
 
-from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import StandardScaler
 import numpy as np
-import streamlit as st
+
+
 
 # Function for prediction
 def diabetes_prediction(input_data):
@@ -34,9 +35,9 @@ def diabetes_prediction(input_data):
     # Reshape the array as we are predicting for one instance
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
-    # Normalize the input data
+    # Standardize the input data
     scaler = MinMaxScaler()
-    std_data = scaler.transform(input_data_reshaped)
+    std_data = scaler.fit_transform(input_data_reshaped)
 
     # Make prediction
     prediction = Diabetes_trained_model.predict(std_data)
@@ -46,6 +47,7 @@ def diabetes_prediction(input_data):
         return 'The person is not diabetic'
     else:
         return 'The person is diabetic'
+
 
 def main():
     # Giving Title
@@ -67,18 +69,9 @@ def main():
 
     # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-        # Convert input data to numerical values
-        Pregnancies = int(Pregnancies)
-        Glucose = int(Glucose)
-        BloodPressure = int(BloodPressure)
-        SkinThickness = int(SkinThickness)
-        Insulin = int(Insulin)
-        BMI = float(BMI)
-        DiabetesPedigreeFunction = float(DiabetesPedigreeFunction)
-        Age = int(Age)
+       diagnosis = diabetes_prediction([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
+    st.success(diagnosis)
 
-        diagnosis = diabetes_prediction([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age])
-        st.success(diagnosis)
 
 if __name__ == '__main__':
     main()
