@@ -18,11 +18,6 @@ from joblib import load
 
 Diabetes_trained_model = load('rf_model.sav')
 
-import joblib
-Diabetes_trained_model = joblib.load('rf_model.sav')
-
-
-
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
