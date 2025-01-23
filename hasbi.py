@@ -20,8 +20,7 @@ Diabetes_trained_model = load('rf_model.sav')
 
 from sklearn.preprocessing import StandardScaler
 import numpy as np
-
-
+import streamlit as st
 
 # Function for prediction
 def diabetes_prediction(input_data):
@@ -39,7 +38,6 @@ def diabetes_prediction(input_data):
         return 'The person is not diabetic'
     else:
         return 'The person is diabetic'
-
 
 def main():
     # Giving Title
@@ -61,9 +59,18 @@ def main():
 
     # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-       diagnosis = diabetes_prediction([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
-    st.success(diagnosis)
+        # Convert input data to numerical values
+        Pregnancies = int(Pregnancies)
+        Glucose = int(Glucose)
+        BloodPressure = int(BloodPressure)
+        SkinThickness = int(SkinThickness)
+        Insulin = int(Insulin)
+        BMI = float(BMI)
+        DiabetesPedigreeFunction = float(DiabetesPedigreeFunction)
+        Age = int(Age)
 
+        diagnosis = diabetes_prediction([Pregnancies, Glucose, BloodPressure, SkinThickness, Insulin, BMI, DiabetesPedigreeFunction, Age])
+        st.success(diagnosis)
 
 if __name__ == '__main__':
     main()
