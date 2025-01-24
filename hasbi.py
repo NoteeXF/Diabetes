@@ -15,7 +15,10 @@ from streamlit_option_menu import option_menu
 
 import pickle
 
-Diabetes_trained_model = pickle.load(open('rf_model.sav', 'rb'))
+# Pastikan path sesuai dengan lokasi file model Anda
+model_path = 'rf_model.sav'
+with open(model_path, 'rb') as file:
+    Diabetes_trained_model = pickle.load(file)
 
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
