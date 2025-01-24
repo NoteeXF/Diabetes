@@ -11,11 +11,11 @@ Original file is located at
 
 import numpy as np
 import streamlit as st
-from streamlit_option_menu import option_menu
 
-import pickle
+import joblib
 
-Diabetes_trained_model = pickle.load(open('rf_model.sav', 'rb'))
+# Load model
+Diabetes_trained_model = joblib.load('rf_model.sav')
 
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
