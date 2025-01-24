@@ -24,25 +24,27 @@ import numpy as np
 
 # Function for prediction
 def diabetes_prediction(input_data):
-    # Convert the input_data to a numpy array
-    input_data_as_numpy_array = np.asarray(input_data)
+    try:
+        # Convert the input_data to a numpy array
+        input_data_as_numpy_array = np.asarray(input_data, dtype=float)
 
-    # Reshape the array as we are predicting for one instance
-    input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
+        # Reshape the array as we are predicting for one instance
+        input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
 
-    # Standardize the input data
-    scaler = MinMaxScaler()
-    std_data = scaler.fit_transform(input_data_reshaped)
+        # Standardize the input data
+        scaler = MinMaxScaler()
+        std_data = scaler.fit_transform(input_data_reshaped)
 
-    # Make prediction
-    prediction = Diabetes_trained_model.predict(std_data)
+        # Make prediction
+        prediction = Diabetes_trained_model.predict(std_data)
 
-    # Return the prediction result
-    if prediction[0] == 0:
-        return 'The person is not diabetic'
-    else:
-        return 'The person is diabetic'
-
+        # Return the prediction result
+        if prediction[0] == 0:
+            return 'The person is not diabetic'
+        else:
+            return 'The person is diabetic'
+    except ValueError as e:
+        return f"Error in processing input data: {e}"
 
 def main():
     # Giving Title
@@ -64,9 +66,23 @@ def main():
 
     # Creating a button for Prediction
     if st.button('Diabetes Test Result'):
-       diagnosis = diabetes_prediction([Pregnancies,Glucose,BloodPressure,SkinThickness,Insulin,BMI,DiabetesPedigreeFunction,Age])
-    st.success(diagnosis)
+        try:
+            # Convert inputs to float
+            input_data = [
+                float(Pregnancies),
+                float(Glucose),
+                float(BloodPressure),
+                float(SkinThickness),
+                float(Insulin),
+                float(BMI),
+                float(DiabetesPedigreeFunction),
+                float(Age)
+            ]
+            diagnosis = diabetes_prediction(input_data)
+        except ValueError:
+            diagnosis = "Please enter valid numeric values for all fields."
 
+    st.success(diagnosis)
 
 if __name__ == '__main__':
     main()
