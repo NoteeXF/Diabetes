@@ -14,11 +14,14 @@ import streamlit as st
 from streamlit_option_menu import option_menu
 
 import pickle
+import os
 
-# Pastikan path sesuai dengan lokasi file model Anda
-model_path = 'rf_model.sav'
-with open(model_path, 'rb') as file:
-    Diabetes_trained_model = pickle.load(file)
+# Check if the model file exists
+if os.path.exists('rf_model.sav'):
+    Diabetes_trained_model = pickle.load(open('rf_model.sav', 'rb'))
+else:
+    st.error("Error: 'rf_model.sav' not found. Please make sure the model file is in the same directory as your script.")
+    st.stop() # Stop further execution if the model file is not found
 
 from sklearn.preprocessing import MinMaxScaler
 import numpy as np
