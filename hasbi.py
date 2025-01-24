@@ -25,7 +25,7 @@ import numpy as np
 # Function for prediction
 def diabetes_prediction(input_data):
     # Convert the input_data to a numpy array
-    input_data_as_numpy_array = np.asarray(input_data)
+    input_data_as_numpy_array = np.asarray(input_data, dtype=float)
 
     # Reshape the array as we are predicting for one instance
     input_data_reshaped = input_data_as_numpy_array.reshape(1, -1)
